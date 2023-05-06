@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js"
+      integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Professor</title>
+  </head>
+  <body>
+    <span id="error" style="color: red"></span>
+
+    <a href="/professors.html">Professors list</a>
+    <!-- form for firstName, lastName and speciality -->
+    <form id="myform">
+      <label for="firstName">First Name</label>
+      <input type="text" name="firstName" id="firstName" />
+      <label for="lastName">Last Name</label>
+      <input type="text" name="lastName" id="lastName" />
+      <label for="speciality">Speciality</label>
+      <input type="text" name="speciality" id="speciality" />
+      <button type="submit">Add</button>
+    </form>
+
+    <span id="success-msg" hidden>Success!!</span>
+  </body>
+
+  <script>
+    document.getElementById("myform").onsubmit = async (e) => {
+      e.preventDefault();
+      const firstName = document.getElementById("firstName").value;
+      const lastName = document.getElementById("lastName").value;
+      const speciality = document.getElementById("speciality").value;
+      const professor = {
+        firstName,
+        lastName,
+        speciality,
+      };
+
+      const username = localStorage.username;
+      const password = localStorage.password;
+      const res = await axios.post(
+        `http://localhost:8080/marksManager/professors?username=${username}&password=${password}`,
+        professor
+      );
+
+      if (res.data == "Your credentials are NOT correct.") {
+        document.getElementById("error").innerHTML = "Your credentials are NOT correct.";
+        setTimeout(() => {
+          window.location.href = "/login.html";
+        }, 2000);
+        return;
+      }
+
+      document.getElementById("success-msg").hidden = false;
+      setTimeout(() => {
+        document.getElementById("success-msg").hidden = true;
+        // empty fields
+        document.getElementById("firstName").value = "";
+        document.getElementById("lastName").value = "";
+        document.getElementById("speciality").value = "";
+      }, 2000);
+    };
+  </script>
+</html>

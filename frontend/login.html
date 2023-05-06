@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+  <!-- Login form -->
+  <span id="error" style="color: red"></span>
+
+  <form id="login-form">
+    <label for="username">Username</label>
+    <input type="text" name="username" id="username" placeholder="Enter your username">
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" placeholder="Enter your password">
+    <input type="submit" value="Login">
+</body>
+
+<script>
+  document.getElementById("login-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    // using axios
+
+    const data = await axios.get(`http://localhost:8080/marksManager/login?username=${username}&password=${password}`)
+    if(data.data.loggedIn) {
+      localStorage.setItem("username", username);
+      localStorage.setItem("password", password);
+      window.location.href = "/home.html";
+    } else {
+      document.getElementById("error").innerHTML = "Your credentials are NOT correct.";
+    }
+  });
+
+</script>
+</html>
