@@ -1,31 +1,41 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:web="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd http://xmlns.jcp.org/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="5.0">
-  <servlet>
-    <description></description>
-    <display-name>First</display-name>
-    <servlet-name>First</servlet-name>
-    <servlet-class>domain.First</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>First</servlet-name>
-    <url-pattern>/First</url-pattern>
-  </servlet-mapping>
-  <display-name>SoftwareEngineeringMiniProject</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
-  <filter>
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  
+    <filter>
+	<filter-name>CORSFilter</filter-name>
     <display-name>CORSFilter</display-name>
-    <filter-name>CORSFilter</filter-name>
-    <filter-class>cors.CORSFilter</filter-class>
+    <filter-class>marksManager.filters.CORSFilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>CORSFilter</filter-name>
     <url-pattern>/*</url-pattern>
   </filter-mapping>
+  <servlet>
+  	<servlet-name>HelloWorld</servlet-name>
+  	<display-name>HelloWorld</display-name>
+  	<description></description>
+  	<servlet-class>marksManager.api.HelloWorld</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>professors</servlet-name>
+  	<display-name>ProfessorController</display-name>
+  	<description></description>
+  	<servlet-class>marksManager.api.ProfessorController</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>APIProxy</servlet-name>
+  	<display-name>APIProxy</display-name>
+  	<description></description>
+  	<servlet-class>marksManager.api.APIProxy</servlet-class>
+  </servlet>
+  
+  
+  <servlet-mapping>
+  	<servlet-name>APIProxy</servlet-name>
+  	<url-pattern>/*</url-pattern>
+  </servlet-mapping>
 </web-app>
